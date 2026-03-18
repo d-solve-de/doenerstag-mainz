@@ -151,7 +151,8 @@
 
       <div class="hours-card">
         <table class="hours-table" aria-label="Öffnungszeiten">
-          <tbody>
+          <tbody id="hoursTableBody">
+            <!-- Rows are rendered dynamically by JS; the following are shown only if JS fails -->
             <tr class="hours-row" data-days="1,2,3,4">
               <td class="hours-day">Mo – Do</td>
               <td class="hours-time">10:00 – 01:00 Uhr</td>

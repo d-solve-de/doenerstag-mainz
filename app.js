@@ -18,8 +18,9 @@
 // Constants
 // =============================================
 
-const SHEET_ID = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
-const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+const SHEET_ID        = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
+const GVIZ_PRICES_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=prices`;
+const GVIZ_HOURS_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=opening-hours`;
 
 /**
  * Fallback menu data – mirrors the Google Sheet structure.
@@ -66,17 +67,23 @@ const CATEGORY_EMOJI = {
 };
 
 /**
- * Opening hours: [openHour, closeHour] per weekday (0=Sun … 6=Sat).
- * closeHour > 24 means the next calendar day (e.g., 25 = 01:00 next day).
+ * Maps German day abbreviations (from the sheet) to JS getDay() indices.
  */
-const OPENING_HOURS = {
-  0: [10, 25], // Sun  10–01
-  1: [10, 25], // Mon  10–01
-  2: [10, 25], // Tue  10–01
-  3: [10, 25], // Wed  10–01
-  4: [10, 25], // Thu  10–01
-  5: [10, 27], // Fri  10–03
-  6: [10, 27], // Sat  10–03
+const DAY_ABBR_TO_INDEX = { mo: 1, di: 2, mi: 3, do: 4, fr: 5, sa: 6, so: 0 };
+
+/**
+ * Fallback opening hours used when the sheet cannot be fetched.
+ * Format: { dayIndex: [[openHour, closeHour], …] }
+ * closeHour > 24 means the closing time wraps past midnight (e.g., 27 = 03:00 next day).
+ */
+const FALLBACK_OPENING_HOURS = {
+  0: [[10, 25]], // Sun  10–01
+  1: [[10, 25]], // Mon  10–01
+  2: [[10, 25]], // Tue  10–01
+  3: [[10, 25]], // Wed  10–01
+  4: [[10, 25]], // Thu  10–01
+  5: [[10, 27]], // Fri  10–03
+  6: [[10, 27]], // Sat  10–03
 };
 
 // =============================================
@@ -298,41 +305,132 @@ function initParticles() {
 // Öffnungszeiten status
 // =============================================
 
-function initHoursStatus() {
-  const statusEl  = document.getElementById('hoursStatus');
-  const todayEl   = document.getElementById('todayHours');
-  const tableRows = document.querySelectorAll('.hours-row');
+/**
+ * Formats a fractional hour (possibly > 24 for cross-midnight) as HH:00.
+ * e.g., 25 → "01:00", 3 → "03:00"
+ */
+function fmtHour(h) {
+  return String(h > 24 ? h - 24 : h).padStart(2, '0') + ':00';
+}
 
-  const now  = new Date();
-  const day  = now.getDay();
-  const hour = now.getHours() + now.getMinutes() / 60;
+async function initHoursStatus() {
+  let openingHours = FALLBACK_OPENING_HOURS;
+  try {
+    openingHours = await fetchOpeningHoursFromSheets();
+  } catch (err) {
+    console.warn('Opening hours could not be loaded from sheet, using fallback.', err);
+  }
+  renderHoursTable(openingHours);
+  renderHoursStatus(openingHours);
+}
 
-  // Highlight today's row
-  const dayAttr = String(day);
-  tableRows.forEach(row => {
-    const days = (row.getAttribute('data-days') || '').split(',');
-    if (days.includes(dayAttr)) row.classList.add('today');
+/**
+ * Fetches opening hours from the "opening-hours" sheet tab.
+ * Expected columns: day (mo/di/mi/do/fr/sa/so), open (hour), close (hour).
+ * A day may have multiple rows (e.g., for a midday break).
+ * If close < open the closing time wraps past midnight (close += 24).
+ * Returns: { dayIndex: [[openHour, closeHour], …] }
+ */
+async function fetchOpeningHoursFromSheets() {
+  const res = await fetch(GVIZ_HOURS_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+
+  const jsonStr = text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1);
+  const data    = JSON.parse(jsonStr);
+
+  const rows = data?.table?.rows;
+  if (!rows || rows.length === 0) throw new Error('Empty opening-hours sheet');
+
+  const hours = {};
+  rows
+    .filter(row => row.c && row.c[0] && row.c[0].v)
+    .forEach(row => {
+      const dayStr   = (row.c[0]?.v ?? '').toString().trim().toLowerCase();
+      const dayIndex = DAY_ABBR_TO_INDEX[dayStr];
+      if (dayIndex === undefined) return;
+
+      const open  = parseFloat(row.c[1]?.v ?? 0);
+      let   close = parseFloat(row.c[2]?.v ?? 0);
+      // Wrap-around: e.g., open=10, close=3 → close becomes 27
+      if (close < open) close += 24;
+
+      if (!hours[dayIndex]) hours[dayIndex] = [];
+      hours[dayIndex].push([open, close]);
+    });
+
+  return hours;
+}
+
+/**
+ * Rebuilds the hours table from fetched data.
+ * Renders rows in Mon–Sun order; days with no slots are omitted.
+ */
+function renderHoursTable(openingHours) {
+  const tbody = document.getElementById('hoursTableBody');
+  if (!tbody) return;
+
+  tbody.innerHTML = '';
+  const today    = new Date().getDay();
+  const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon … Sun
+
+  dayOrder.forEach(dayIndex => {
+    const slots = openingHours[dayIndex];
+    if (!slots || slots.length === 0) return;
+
+    const tr = document.createElement('tr');
+    tr.className = 'hours-row';
+    tr.setAttribute('data-days', String(dayIndex));
+    if (dayIndex === today) tr.classList.add('today');
+
+    const timeText = slots
+      .map(([o, c]) => `${fmtHour(o)} – ${fmtHour(c)} Uhr`)
+      .join(' / ');
+
+    tr.innerHTML = `
+      <td class="hours-day">${DAY_NAMES_DE[dayIndex]}</td>
+      <td class="hours-time">${timeText}</td>
+      <td class="hours-note"></td>`;
+
+    tbody.appendChild(tr);
   });
+}
 
-  // Determine open/closed
-  const [open, close] = OPENING_HOURS[day] || [10, 25];
-  // After-midnight hours: treat current time post-midnight as 24+
+/**
+ * Updates the open/closed badge and today's hours line in the Kontakt section.
+ */
+function renderHoursStatus(openingHours) {
+  const statusEl = document.getElementById('hoursStatus');
+  const todayEl  = document.getElementById('todayHours');
+
+  const now          = new Date();
+  const day          = now.getDay();
+  const hour         = now.getHours() + now.getMinutes() / 60;
   const adjustedHour = hour < 6 ? hour + 24 : hour;
-  const isOpen = adjustedHour >= open && adjustedHour < close;
 
-  const fmtHour = h => String(h > 24 ? h - 24 : h).padStart(2, '0') + ':00';
-  const closeDisplay = fmtHour(close);
-  const openDisplay  = fmtHour(open);
+  const slots       = openingHours[day] || [];
+  const currentSlot = slots.find(([open, close]) => adjustedHour >= open && adjustedHour < close);
+  const isOpen      = !!currentSlot;
 
   if (statusEl) {
     statusEl.className = `hours-status ${isOpen ? 'open' : 'closed'}`;
-    statusEl.textContent = isOpen
-      ? `✅ Jetzt geöffnet – bis ${closeDisplay} Uhr`
-      : `❌ Aktuell geschlossen – öffnet um ${openDisplay} Uhr`;
+    if (isOpen) {
+      statusEl.textContent = `✅ Jetzt geöffnet – bis ${fmtHour(currentSlot[1])} Uhr`;
+    } else {
+      const nextSlot = slots.find(([open]) => adjustedHour < open);
+      if (nextSlot) {
+        statusEl.textContent = `❌ Aktuell geschlossen – öffnet um ${fmtHour(nextSlot[0])} Uhr`;
+      } else {
+        statusEl.textContent = '❌ Aktuell geschlossen';
+      }
+    }
   }
 
   if (todayEl) {
-    todayEl.textContent = `${openDisplay} – ${closeDisplay} Uhr (${isOpen ? 'geöffnet' : 'geschlossen'})`;
+    const slotsText = slots.length > 0
+      ? slots.map(([o, c]) => `${fmtHour(o)} – ${fmtHour(c)} Uhr`).join(', ')
+      : 'Heute geschlossen';
+    todayEl.textContent = `${slotsText} (${isOpen ? 'geöffnet' : 'geschlossen'})`;
     todayEl.style.color = isOpen ? '#4ecdc4' : 'var(--primary)';
   }
 }
@@ -370,7 +468,7 @@ async function initMenuLoader() {
  * Returns an array of { kategorie, gericht, preis, bildUrl } objects.
  */
 async function fetchMenuFromSheets() {
-  const res  = await fetch(GVIZ_URL);
+  const res  = await fetch(GVIZ_PRICES_URL);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const text = await res.text();
 
