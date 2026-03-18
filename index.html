@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dönerstag Mainz – Döner, Pizza &amp; Falafel</title>
+  <meta name="description" content="Dönerstag Mainz – Frischer Döner, knusprige Pizza und vegane Falafel am Kaiser-Wilhelm-Ring. Täglich geöffnet bis spät in die Nacht." />
+  <meta name="keywords" content="Döner Mainz, Dönerstag, Pizza Mainz, Falafel Mainz, Kaiser-Wilhelm-Ring" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.donerstag-mainz.de/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dönerstag Mainz" />
+  <meta property="og:description" content="Frischer Döner, Pizza & Falafel in Mainz – täglich geöffnet." />
+  <meta property="og:type" content="restaurant" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" aria-label="Dönerstag – zur Startseite">
+        <span class="logo-icon">🥙</span>
+        <span class="logo-text">Dönerstag</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen/schließen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#speisekarte" class="nav-link">Speisekarte</a></li>
+        <li><a href="#spezial" class="nav-link">Aktionstage</a></li>
+        <li><a href="#oeffnungszeiten" class="nav-link">Öffnungszeiten</a></li>
+        <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+        <li>
+          <a href="tel:+4961312165510" class="nav-cta" aria-label="Jetzt anrufen: 06131 2165510">
+            📞 Anrufen
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero" class="hero" aria-label="Willkommen bei Dönerstag">
+    <div class="hero-bg-particles" id="particles" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="day-badge" id="dayBadge" aria-live="polite"></div>
+      <h1 class="hero-title" id="heroTitle">Dönerstag Mainz</h1>
+      <p class="hero-subtitle" id="heroSubtitle">Frischer Döner · Knusprige Pizza · Vegane Falafel</p>
+
+      <!-- Day-specific animation stage -->
+      <div class="animation-stage" id="animationStage" aria-label="Tagesanimation" role="img">
+        <!-- Injected by JS -->
+      </div>
+
+      <div class="hero-actions">
+        <a href="#speisekarte" class="btn btn-primary">Zur Speisekarte</a>
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=Kaiser-Wilhelm-Ring+39,+55118+Mainz&travelmode=driving"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+          aria-label="Navigation zu Dönerstag starten (öffnet Google Maps)"
+        >
+          📍 Route starten
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- ===== AKTIONSTAGE ===== -->
+  <section id="spezial" class="section spezial" aria-labelledby="spezialHeading">
+    <div class="container">
+      <h2 class="section-title" id="spezialHeading">Unsere Aktionstage</h2>
+      <p class="section-subtitle">An diesen Tagen gibt es bei uns etwas Besonderes!</p>
+
+      <div class="spezial-grid">
+        <div class="spezial-card" data-day="1">
+          <div class="spezial-emoji" aria-hidden="true">🧆</div>
+          <h3>Montag</h3>
+          <p class="spezial-name">Falafel-Tag</p>
+          <p class="spezial-desc">Frisch zubereitete Falafel – knusprig, würzig, 100 % vegan.</p>
+        </div>
+
+        <div class="spezial-card spezial-card--highlight" data-day="4">
+          <div class="spezial-emoji" aria-hidden="true">🥙</div>
+          <h3>Donnerstag</h3>
+          <p class="spezial-name">Dönerstag!</p>
+          <p class="spezial-desc">Der echte Dönerstag: saftiger Döner mit eiskalter Cola – das Original.</p>
+        </div>
+
+        <div class="spezial-card" data-day="3">
+          <div class="spezial-emoji" aria-hidden="true">🍕</div>
+          <h3>Mittwoch</h3>
+          <p class="spezial-name">Pizza-Aktionstag</p>
+          <p class="spezial-desc">Jeden Mittwoch gibt es unsere hausgemachte Pizza zu Aktionspreisen!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPEISEKARTE ===== -->
+  <section id="speisekarte" class="section speisekarte" aria-labelledby="speisekarteHeading">
+    <div class="container">
+      <h2 class="section-title" id="speisekarteHeading">Speisekarte</h2>
+      <p class="section-subtitle">Frisch zubereitet – täglich für dich</p>
+
+      <!-- Filter buttons -->
+      <div class="filter-bar" id="filterBar" role="tablist" aria-label="Menükategorie wählen">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Alle</button>
+      </div>
+
+      <!-- Loading state -->
+      <div class="menu-loading" id="menuLoading" aria-live="polite" aria-label="Speisekarte wird geladen">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Speisekarte wird geladen…</p>
+      </div>
+
+      <!-- Menu grid -->
+      <div class="menu-grid" id="menuGrid" aria-live="polite"></div>
+
+      <!-- Error state -->
+      <div class="menu-error hidden" id="menuError" role="alert">
+        <p>⚠️ Speisekarte konnte nicht geladen werden. Bitte ruf uns an oder schau direkt bei uns vorbei!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ÖFFNUNGSZEITEN ===== -->
+  <section id="oeffnungszeiten" class="section oeffnungszeiten" aria-labelledby="hoursHeading">
+    <div class="container">
+      <h2 class="section-title" id="hoursHeading">Öffnungszeiten</h2>
+      <p class="section-subtitle">Wir sind fast immer für dich da</p>
+
+      <div class="hours-card">
+        <table class="hours-table" aria-label="Öffnungszeiten">
+          <tbody>
+            <tr class="hours-row" data-days="1,2,3,4">
+              <td class="hours-day">Mo – Do</td>
+              <td class="hours-time">10:00 – 01:00 Uhr</td>
+              <td class="hours-note"></td>
+            </tr>
+            <tr class="hours-row" data-days="5,6">
+              <td class="hours-day">Fr – Sa</td>
+              <td class="hours-time">10:00 – 03:00 Uhr</td>
+              <td class="hours-note hours-note--special">🎉 Bis spät!</td>
+            </tr>
+            <tr class="hours-row" data-days="0">
+              <td class="hours-day">Sonntag</td>
+              <td class="hours-time">10:00 – 01:00 Uhr</td>
+              <td class="hours-note"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="hours-status" id="hoursStatus" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KONTAKT ===== -->
+  <section id="kontakt" class="section kontakt" aria-labelledby="kontaktHeading">
+    <div class="container">
+      <h2 class="section-title" id="kontaktHeading">Kontakt &amp; Anfahrt</h2>
+      <p class="section-subtitle">Wir freuen uns auf deinen Besuch</p>
+
+      <div class="kontakt-grid">
+        <div class="kontakt-info">
+          <div class="kontakt-item">
+            <span class="kontakt-icon" aria-hidden="true">📍</span>
+            <div>
+              <strong>Adresse</strong>
+              <address>
+                Dönerstag<br />
+                Kaiser-Wilhelm-Ring 39<br />
+                55118 Mainz
+              </address>
+            </div>
+          </div>
+
+          <div class="kontakt-item">
+            <span class="kontakt-icon" aria-hidden="true">📞</span>
+            <div>
+              <strong>Telefon</strong>
+              <a href="tel:+4961312165510" class="phone-link" aria-label="Anrufen: 06131 2165510">
+                06131 2165510
+              </a>
+            </div>
+          </div>
+
+          <div class="kontakt-item">
+            <span class="kontakt-icon" aria-hidden="true">🕐</span>
+            <div>
+              <strong>Heute</strong>
+              <p id="todayHours"></p>
+            </div>
+          </div>
+
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Kaiser-Wilhelm-Ring+39,+55118+Mainz&travelmode=driving"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary maps-btn"
+            aria-label="Google Maps Navigation zu Dönerstag Mainz starten"
+          >
+            🗺️ Navigation starten
+          </a>
+        </div>
+
+        <div class="kontakt-map">
+          <iframe
+            title="Standort Dönerstag Mainz auf Google Maps"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2543.5!2d8.255135!3d50.0059464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd96fa66d14d25%3A0x215e169d1b4ef1ba!2sD%C3%B6nerstag!5e0!3m2!1sde!2sde!4v1"
+            width="100%"
+            height="350"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo-icon" aria-hidden="true">🥙</span>
+          <span class="logo-text">Dönerstag</span>
+          <p>Kaiser-Wilhelm-Ring 39 · 55118 Mainz</p>
+          <a href="tel:+4961312165510" aria-label="Anrufen: 06131 2165510">📞 06131 2165510</a>
+        </div>
+
+        <div class="footer-links">
+          <h3>Rechtliches</h3>
+          <ul role="list">
+            <li><button class="footer-link-btn" id="openImpressum" aria-haspopup="dialog">Impressum</button></li>
+            <li><button class="footer-link-btn" id="openDatenschutz" aria-haspopup="dialog">Datenschutzerklärung</button></li>
+          </ul>
+        </div>
+
+        <div class="footer-hours">
+          <h3>Öffnungszeiten</h3>
+          <p>Mo – Do: 10:00 – 01:00 Uhr</p>
+          <p>Fr – Sa: 10:00 – 03:00 Uhr</p>
+          <p>So: 10:00 – 01:00 Uhr</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="footerYear"></span> Dönerstag Mainz. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== IMPRESSUM MODAL ===== -->
+  <div class="modal" id="impressumModal" role="dialog" aria-modal="true" aria-labelledby="impressumTitle" hidden>
+    <div class="modal-backdrop" data-close="impressumModal"></div>
+    <div class="modal-content">
+      <button class="modal-close" data-close="impressumModal" aria-label="Impressum schließen">✕</button>
+      <h2 id="impressumTitle">Impressum</h2>
+      <p><strong>Angaben gemäß § 5 TMG</strong></p>
+
+      <h3>Betreiber</h3>
+      <p>
+        Dönerstag Mainz<br />
+        Kaiser-Wilhelm-Ring 39<br />
+        55118 Mainz
+      </p>
+
+      <h3>Kontakt</h3>
+      <p>
+        Telefon: <a href="tel:+4961312165510">06131 2165510</a>
+      </p>
+
+      <h3>Haftungsausschluss</h3>
+      <p>
+        Die Inhalte dieser Webseite wurden mit größtmöglicher Sorgfalt erstellt. Für die
+        Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine
+        Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene
+        Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+      </p>
+
+      <h3>Haftung für Links</h3>
+      <p>
+        Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir
+        keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine
+        Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige
+        Anbieter oder Betreiber der Seiten verantwortlich.
+      </p>
+
+      <h3>Urheberrecht</h3>
+      <p>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+        unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung,
+        Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes
+        bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== DATENSCHUTZ MODAL ===== -->
+  <div class="modal" id="datenschutzModal" role="dialog" aria-modal="true" aria-labelledby="datenschutzTitle" hidden>
+    <div class="modal-backdrop" data-close="datenschutzModal"></div>
+    <div class="modal-content">
+      <button class="modal-close" data-close="datenschutzModal" aria-label="Datenschutz schließen">✕</button>
+      <h2 id="datenschutzTitle">Datenschutzerklärung</h2>
+
+      <h3>1. Datenschutz auf einen Blick</h3>
+      <p>
+        Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
+        personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+        Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert
+        werden können.
+      </p>
+
+      <h3>2. Verantwortlicher</h3>
+      <p>
+        Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br /><br />
+        Dönerstag Mainz<br />
+        Kaiser-Wilhelm-Ring 39<br />
+        55118 Mainz<br />
+        Telefon: 06131 2165510
+      </p>
+
+      <h3>3. Datenerfassung auf dieser Website</h3>
+      <p>
+        <strong>Server-Log-Dateien:</strong> Der Provider dieser Website erhebt und
+        speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr
+        Browser automatisch an uns übermittelt. Dies sind: Browsertyp und Browserversion,
+        verwendetes Betriebssystem, Referrer URL, Hostname des zugreifenden Rechners,
+        Uhrzeit der Serveranfrage sowie IP-Adresse. Eine Zusammenführung dieser Daten mit
+        anderen Datenquellen wird nicht vorgenommen.
+      </p>
+      <p>
+        <strong>Google Fonts:</strong> Diese Website nutzt zur einheitlichen Darstellung
+        von Schriftarten Google Fonts. Beim Aufruf einer Seite lädt Ihr Browser die
+        benötigten Web Fonts in ihren Browsercache, um Texte und Schriftarten korrekt
+        anzuzeigen. Zu diesem Zweck muss der von Ihnen verwendete Browser Verbindung zu
+        den Servern von Google aufnehmen. Hierdurch erlangt Google Kenntnis darüber, dass
+        über Ihre IP-Adresse diese Website aufgerufen wurde. Rechtsgrundlage ist Art. 6
+        Abs. 1 lit. f DSGVO.
+      </p>
+      <p>
+        <strong>Google Maps:</strong> Diese Website nutzt den Kartendienst Google Maps.
+        Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+        Irland. Bei der Nutzung von Google Maps können Daten an Google übertragen werden.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+      </p>
+      <p>
+        <strong>Speisekarte (Google Sheets):</strong> Die Speisekarte wird dynamisch aus
+        Google Sheets geladen. Hierbei wird eine Anfrage an die Server von Google
+        gestellt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.
+      </p>
+
+      <h3>4. Ihre Rechte</h3>
+      <p>
+        Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten
+        personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der
+        Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten.
+        Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich
+        jederzeit an uns wenden (Kontaktdaten siehe Impressum).
+      </p>
+
+      <h3>5. Analyse-Tools und Werbung</h3>
+      <p>
+        Diese Website verwendet keine Analyse-Tools von Drittanbietern und schaltet keine
+        Werbung. Es werden keine Cookies zu Tracking- oder Werbezwecken eingesetzt.
+      </p>
+
+      <h3>6. Beschwerderecht</h3>
+      <p>
+        Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
+        Die zuständige Aufsichtsbehörde für Rheinland-Pfalz ist der Landesbeauftragte für
+        den Datenschutz und die Informationsfreiheit Rheinland-Pfalz, Hintere Bleiche 34,
+        55116 Mainz.
+      </p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
