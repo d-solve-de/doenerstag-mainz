@@ -695,6 +695,16 @@ button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 3px;
   border-radius: var(--radius);
 }
 
+.menu-price-warning {
+  text-align: center;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  background: rgba(255, 165, 0, 0.08);
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  border-radius: var(--radius);
+}
+
 /* =============================================
    ÖFFNUNGSZEITEN
    ============================================= */

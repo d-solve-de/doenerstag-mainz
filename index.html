@@ -135,6 +135,11 @@
       <div class="menu-error hidden" id="menuError" role="alert">
         <p>⚠️ Speisekarte konnte nicht geladen werden. Bitte ruf uns an oder schau direkt bei uns vorbei!</p>
       </div>
+
+      <!-- Price warning (shown when live prices could not be loaded) -->
+      <div class="menu-price-warning hidden" id="menuPriceWarning" role="alert">
+        <p>⚠️ Die aktuellen Preise konnten nicht geladen werden. Die angezeigten Preise sind Platzhalter – bitte frag direkt bei uns nach.</p>
+      </div>
     </div>
   </section>
 
@@ -146,7 +151,8 @@
 
       <div class="hours-card">
         <table class="hours-table" aria-label="Öffnungszeiten">
-          <tbody>
+          <tbody id="hoursTableBody">
+            <!-- Rows are rendered dynamically by JS; the following are shown only if JS fails -->
             <tr class="hours-row" data-days="1,2,3,4">
               <td class="hours-day">Mo – Do</td>
               <td class="hours-time">10:00 – 01:00 Uhr</td>
