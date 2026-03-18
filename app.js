@@ -18,7 +18,7 @@
 // Constants
 // =============================================
 
-const SHEET_ID = '1nwQZ5SMU-sLoUWIcLPgDma-x7yn1Tfblo6s5B9ECUNI';
+const SHEET_ID = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
 const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
 /**
@@ -27,28 +27,28 @@ const GVIZ_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx
  */
 const FALLBACK_MENU = [
   // Döner / Kebab
-  { kategorie: 'Döner & Kebab', gericht: 'Döner Kebab (Brot)',       preis: 7.50, bildUrl: '' },
-  { kategorie: 'Döner & Kebab', gericht: 'Döner Kebab (Dürüm)',      preis: 8.00, bildUrl: '' },
-  { kategorie: 'Döner & Kebab', gericht: 'Döner Teller',             preis: 10.50, bildUrl: '' },
-  { kategorie: 'Döner & Kebab', gericht: 'Döner a la Turka',         preis: 9.00, bildUrl: '' },
-  { kategorie: 'Döner & Kebab', gericht: 'Yufka Döner',              preis: 8.50, bildUrl: '' },
-  { kategorie: 'Döner & Kebab', gericht: 'Veganer Dürüm (Halloumi)', preis: 8.00, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Döner Kebab (Brot)',       preis: 100, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Döner Kebab (Dürüm)',      preis: 100, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Döner Teller',             preis: 100, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Döner a la Turka',         preis: 100, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Yufka Döner',              preis: 100, bildUrl: '' },
+  { kategorie: 'Döner & Kebab', gericht: 'Veganer Dürüm (Halloumi)', preis: 100, bildUrl: '' },
   // Falafel
-  { kategorie: 'Falafel',       gericht: 'Falafel im Brot',          preis: 6.50, bildUrl: '' },
-  { kategorie: 'Falafel',       gericht: 'Falafel Dürüm',            preis: 7.00, bildUrl: '' },
-  { kategorie: 'Falafel',       gericht: 'Falafel Teller',           preis: 9.00, bildUrl: '' },
+  { kategorie: 'Falafel',       gericht: 'Falafel im Brot',          preis: 100, bildUrl: '' },
+  { kategorie: 'Falafel',       gericht: 'Falafel Dürüm',            preis: 100, bildUrl: '' },
+  { kategorie: 'Falafel',       gericht: 'Falafel Teller',           preis: 100, bildUrl: '' },
   // Pizza
-  { kategorie: 'Pizza',         gericht: 'Pizza Margherita',         preis: 7.00, bildUrl: '' },
-  { kategorie: 'Pizza',         gericht: 'Pizza Funghi',             preis: 8.00, bildUrl: '' },
-  { kategorie: 'Pizza',         gericht: 'Pizza Salami',             preis: 8.50, bildUrl: '' },
-  { kategorie: 'Pizza',         gericht: 'Pizza Döner',              preis: 9.50, bildUrl: '' },
+  { kategorie: 'Pizza',         gericht: 'Pizza Margherita',         preis: 100, bildUrl: '' },
+  { kategorie: 'Pizza',         gericht: 'Pizza Funghi',             preis: 100, bildUrl: '' },
+  { kategorie: 'Pizza',         gericht: 'Pizza Salami',             preis: 100, bildUrl: '' },
+  { kategorie: 'Pizza',         gericht: 'Pizza Döner',              preis: 100, bildUrl: '' },
   // Salate
-  { kategorie: 'Salate',        gericht: 'Thunfischsalat',           preis: 4.00, bildUrl: '' },
-  { kategorie: 'Salate',        gericht: 'Gemischter Salat',         preis: 6.00, bildUrl: 'https://res.cloudinary.com/tkwy-prod-eu/image/upload/c_thumb,w_2200,h_480/f_auto/q_auto/dpr_1.0/d_de:cuisines:italienische-pizza-3.jpg/v1/static-takeaway-com/images/generic/heroes/271/271_italian_pizza_163' },
+  { kategorie: 'Salate',        gericht: 'Thunfischsalat',           preis: 100, bildUrl: '' },
+  { kategorie: 'Salate',        gericht: 'Gemischter Salat',         preis: 100, bildUrl: 'https://res.cloudinary.com/tkwy-prod-eu/image/upload/c_thumb,w_2200,h_480/f_auto/q_auto/dpr_1.0/d_de:cuisines:italienische-pizza-3.jpg/v1/static-takeaway-com/images/generic/heroes/271/271_italian_pizza_163' },
   // Getränke
-  { kategorie: 'Getränke',      gericht: 'Cola 0,33 l',              preis: 2.50, bildUrl: '' },
-  { kategorie: 'Getränke',      gericht: 'Wasser 0,5 l',             preis: 2.00, bildUrl: '' },
-  { kategorie: 'Getränke',      gericht: 'Ayran',                    preis: 2.00, bildUrl: '' },
+  { kategorie: 'Getränke',      gericht: 'Cola 0,33 l',              preis: 100, bildUrl: '' },
+  { kategorie: 'Getränke',      gericht: 'Wasser 0,5 l',             preis: 100, bildUrl: '' },
+  { kategorie: 'Getränke',      gericht: 'Ayran',                    preis: 100, bildUrl: '' },
 ];
 
 /**
@@ -62,6 +62,7 @@ const CATEGORY_EMOJI = {
   'getränke':      '🥤',
   'kebab':         '🥙',
   'salat':         '🥗',
+  'default':       '🍽️',
 };
 
 /**
@@ -359,6 +360,8 @@ async function initMenuLoader() {
     renderMenu(menu);
   } catch {
     renderMenu(FALLBACK_MENU);
+    const warning = document.getElementById('menuPriceWarning');
+    if (warning) warning.classList.remove('hidden');
   }
 }
 
@@ -494,7 +497,7 @@ function createMenuCard(item) {
 }
 
 function categoryEmoji(kategorie) {
-  return CATEGORY_EMOJI[(kategorie || '').toLowerCase()] || '🍽️';
+  return CATEGORY_EMOJI[(kategorie || '').toLowerCase()] || CATEGORY_EMOJI['default'];
 }
 
 function formatPrice(price) {
