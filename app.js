@@ -21,6 +21,7 @@
 const SHEET_ID        = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
 const GVIZ_PRICES_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=prices`;
 const GVIZ_HOURS_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=opening-hours`;
+const GVIZ_NEWS_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=news`;
 
 /**
  * Fallback menu data – mirrors the Google Sheet structure.
@@ -101,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initParticles();
   initSpecialDayHighlight();
+  initNewsLoader();
 });
 
 // =============================================
@@ -647,6 +649,55 @@ function escapeHtml(str) {
     .replace(/>/g,  '&gt;')
     .replace(/"/g,  '&quot;')
     .replace(/'/g,  '&#39;');
+}
+
+// =============================================
+// News Banner
+// =============================================
+
+async function fetchNewsFromSheets() {
+  const res  = await fetch(GVIZ_NEWS_URL);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+
+  const jsonStr = text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1);
+  const data    = JSON.parse(jsonStr);
+
+  const rows = data?.table?.rows;
+  if (!rows || rows.length === 0) return [];
+
+  return rows
+    .filter(row => row.c && row.c[0] && row.c[0].v)
+    .map(row => ({
+      title: (row.c[0]?.v ?? '').toString().trim(),
+      text:  (row.c[1]?.v ?? '').toString().trim(),
+    }));
+}
+
+async function initNewsLoader() {
+  const container = document.getElementById('newsContainer');
+  if (!container) return;
+
+  try {
+    const items = await fetchNewsFromSheets();
+    if (!items.length) return;
+
+    container.innerHTML = '';
+    items.forEach(item => {
+      const article = document.createElement('article');
+      article.className = 'news-item';
+      article.innerHTML = `
+        <h3 class="news-title">${escapeHtml(item.title)}</h3>
+        ${item.text ? `<p class="news-text">${escapeHtml(item.text)}</p>` : ''}
+      `;
+      container.appendChild(article);
+    });
+
+    container.hidden = false;
+  } catch (e) {
+    // News are optional; log to console for debugging
+    console.warn('[News] Could not load news:', e);
+  }
 }
 
 // =============================================
