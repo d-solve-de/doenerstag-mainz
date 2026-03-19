@@ -22,7 +22,7 @@ const SHEET_ID        = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
 const GVIZ_PRICES_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=prices`;
 const GVIZ_HOURS_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=opening-hours`;
 const GVIZ_NEWS_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=news`;
-
+const GVIZ_CONTACT_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing`;
 /**
  * Fallback menu data – mirrors the Google Sheet structure.
  * kategorie, gericht, preis (€), bildUrl (optional)
@@ -46,7 +46,7 @@ const FALLBACK_MENU = [
   { kategorie: 'Pizza',         gericht: 'Pizza Döner',              preis: null, bildUrl: '' },
   // Salate
   { kategorie: 'Salate',        gericht: 'Thunfischsalat',           preis: null, bildUrl: '' },
-  { kategorie: 'Salate',        gericht: 'Gemischter Salat',         preis: null, bildUrl: 'https://res.cloudinary.com/tkwy-prod-eu/image/upload/c_thumb,w_2200,h_480/f_auto/q_auto/dpr_1.0/d_de:cuisines:italienische-pizza-3.jpg/v1/static-takeaway-com/images/generic/heroes/271/271_italian_pizza_163' },
+  { kategorie: 'Salate',        gericht: 'Gemischter Salat',         preis: null, bildUrl: '' },
   // Getränke
   { kategorie: 'Getränke',      gericht: 'Cola 0,33 l',              preis: null, bildUrl: '' },
   { kategorie: 'Getränke',      gericht: 'Wasser 0,5 l',             preis: null, bildUrl: '' },
@@ -121,7 +121,7 @@ function initYear() {
   if (el) el.textContent = new Date().getFullYear();
   const copyright = document.getElementById('footerCopyright');
   if (copyright) {
-    const url = copyright.dataset.url;
+    const url = GVIZ_CONTACT_URL;
     const open = () => {
       const pwd = window.prompt('Passwort:');
       if (pwd === '39') window.open(url, '_blank', 'noopener,noreferrer');
