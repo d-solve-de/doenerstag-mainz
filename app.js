@@ -408,8 +408,14 @@ async function fetchOpeningHoursFromSheets() {
       const dayIndex = DAY_ABBR_TO_INDEX[dayStr];
       if (dayIndex === undefined) return;
 
-      const open  = parseTimeStr(row.c[1]?.v ?? 0);
-      let   close = parseTimeStr(row.c[2]?.v ?? 0);
+      // Google Sheets returns time/datetime columns as Date(...) strings in .v
+      // but provides a human-readable "HH:MM" in .f – prefer .f over .v
+      const openCell  = row.c[1];
+      const closeCell = row.c[2];
+      if (!openCell || !closeCell || openCell.v == null || closeCell.v == null) return;
+
+      const open  = parseTimeStr(openCell.f ?? openCell.v ?? 0);
+      let   close = parseTimeStr(closeCell.f ?? closeCell.v ?? 0);
       // Wrap-around: e.g., open=10:00, close=03:00 → close becomes 27
       if (close < open) close += 24;
 
@@ -487,8 +493,8 @@ function renderHoursStatus(openingHours) {
   if (todayEl) {
     const slotsText = slots.length > 0
       ? slots.map(([o, c]) => `${fmtHour(o)} – ${fmtHour(c)} Uhr`).join(', ')
-      : 'Aktuell geschlossen';
-    todayEl.textContent = `${slotsText} (${isOpen ? 'geöffnet' : 'geschlossen'})`;
+      : 'Aktuell ';
+    todayEl.textContent = `${slotsText} ${isOpen ? 'geöffnet' : 'geschlossen'}`;
     todayEl.style.color = isOpen ? '#4ecdc4' : 'var(--primary)';
   }
 }
