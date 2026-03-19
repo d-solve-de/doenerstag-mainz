@@ -69,9 +69,8 @@ const CATEGORY_EMOJI = {
   'alkoholfreie getränke':      '🥤',
   'salate':         '🥗',
   'salat':         '🥗',
-  'default':       '🍽️',
   'teig gerichte ': '🥟',
-
+  'default':       '🍽️',
 };
 
 /**
