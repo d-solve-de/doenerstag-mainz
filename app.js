@@ -329,16 +329,31 @@ function initParticles() {
 
 /**
  * Parses a time value from a Google Sheet cell into a fractional hour number.
- * Accepts "HH:MM" strings (e.g. "11:30" → 11.5, "11:15" → 11.25) as well as
- * plain numeric strings or numbers (e.g. "11" or 11 → 11).
+ * Handles multiple formats returned by Google Sheets gviz:
+ *  - "Date(1899,11,30,11,30,0)" → 11.5  (gviz datetime .v)
+ *  - "11:30" or "11:30:00"     → 11.5  (gviz .f or plain text)
+ *  - 11 or "11"                → 11    (plain number)
+ * Returns null if the value cannot be parsed.
  */
 function parseTimeStr(val) {
-  const str = String(val ?? '').trim();
-  if (str.includes(':')) {
-    const [hPart, mPart] = str.split(':');
-    return parseInt(hPart, 10) + parseInt(mPart, 10) / 60;
+  if (val == null) return null;
+  const str = String(val).trim();
+  if (!str) return null;
+
+  // Handle gviz Date(year,month,day,hour,minute,second) format
+  const dateMatch = str.match(/^Date\(\d+,\d+,\d+,(\d+),(\d+),(\d+)\)$/);
+  if (dateMatch) {
+    return parseInt(dateMatch[1], 10) + parseInt(dateMatch[2], 10) / 60;
   }
-  return parseFloat(str) || 0;
+
+  // Handle HH:MM or HH:MM:SS
+  if (str.includes(':')) {
+    const parts = str.split(':');
+    return parseInt(parts[0], 10) + parseInt(parts[1], 10) / 60;
+  }
+
+  const num = parseFloat(str);
+  return isNaN(num) ? null : num;
 }
 
 /**
@@ -412,12 +427,18 @@ async function fetchOpeningHoursFromSheets() {
       // but provides a human-readable "HH:MM" in .f – prefer .f over .v
       const openCell  = row.c[1];
       const closeCell = row.c[2];
-      if (!openCell || !closeCell || openCell.v == null || closeCell.v == null) return;
+      // Skip if cells are missing entirely (null row entry)
+      if (!openCell && !closeCell) return;
 
-      const open  = parseTimeStr(openCell.f ?? openCell.v ?? 0);
-      let   close = parseTimeStr(closeCell.f ?? closeCell.v ?? 0);
+      const open  = parseTimeStr(openCell?.f ?? openCell?.v);
+      let   close = parseTimeStr(closeCell?.f ?? closeCell?.v);
+
+      // Skip if times couldn't be parsed, or both are 0 (= closed day, e.g. 00:00–00:00)
+      if (open == null || close == null) return;
+      if (open === 0 && close === 0) return;
+
       // Wrap-around: e.g., open=10:00, close=03:00 → close becomes 27
-      if (close < open) close += 24;
+      if (close <= open) close += 24;
 
       if (!hours[dayIndex]) hours[dayIndex] = [];
       hours[dayIndex].push([open, close]);
@@ -428,7 +449,7 @@ async function fetchOpeningHoursFromSheets() {
 
 /**
  * Rebuilds the hours table from fetched data.
- * Renders rows in Mon–Sun order; days with no slots are omitted.
+ * Renders rows in Mon–Sun order; days with no slots show "Geschlossen".
  */
 function renderHoursTable(openingHours) {
   const tbody = document.getElementById('hoursTableBody');
@@ -440,16 +461,15 @@ function renderHoursTable(openingHours) {
 
   dayOrder.forEach(dayIndex => {
     const slots = openingHours[dayIndex];
-    if (!slots || slots.length === 0) return;
 
     const tr = document.createElement('tr');
     tr.className = 'hours-row';
     tr.setAttribute('data-days', String(dayIndex));
     if (dayIndex === today) tr.classList.add('today');
 
-    const timeText = slots
-      .map(([o, c]) => `${fmtHour(o)} – ${fmtHour(c)} Uhr`)
-      .join(' / ');
+    const timeText = (slots && slots.length > 0)
+      ? slots.map(([o, c]) => `${fmtHour(o)} – ${fmtHour(c)} Uhr`).join(' / ')
+      : 'Geschlossen';
 
     tr.innerHTML = `
       <td class="hours-day">${DAY_NAMES_DE[dayIndex]}</td>
