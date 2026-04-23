@@ -21,6 +21,19 @@
   <meta name="ai-content-declaration" content="human-authored" />
   <meta name="purpose" content="Restaurant: Döner, Pizza und Falafel am Kaiser-Wilhelm-Ring 39, 55118 Mainz. Speisekarte, Aktionstage, Öffnungszeiten, Kontakt und Anfahrt." />
   <link rel="alternate" type="text/markdown" title="LLM-friendly summary" href="/llms.txt" />
+  <link rel="alternate" type="text/markdown" title="Markdown version of this page" href="/index.md" />
+  <link rel="service-doc" type="text/markdown" href="/llms.txt" />
+  <link rel="api-catalog" href="/.well-known/api-catalog" />
+  <link rel="describedby" type="application/json" href="/.well-known/agent-skills/index.json" />
+
+  <!-- Link headers (RFC 8288) for agent discovery, replicated as http-equiv
+       so they are exposed even on static hosts that cannot set HTTP headers. -->
+  <meta http-equiv="Link" content="</llms.txt>; rel=&quot;service-doc&quot;; type=&quot;text/markdown&quot;" />
+  <meta http-equiv="Link" content="</index.md>; rel=&quot;alternate&quot;; type=&quot;text/markdown&quot;; title=&quot;Markdown version&quot;" />
+  <meta http-equiv="Link" content="</.well-known/api-catalog>; rel=&quot;api-catalog&quot;" />
+  <meta http-equiv="Link" content="</.well-known/agent-skills/index.json>; rel=&quot;describedby&quot;; type=&quot;application/json&quot;" />
+  <meta http-equiv="Link" content="</.well-known/mcp/server-card.json>; rel=&quot;https://modelcontextprotocol.io/rels/server-card&quot;; type=&quot;application/json&quot;" />
+  <meta http-equiv="Link" content="</sitemap.xml>; rel=&quot;sitemap&quot;; type=&quot;application/xml&quot;" />
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="Dönerstag Mainz" />

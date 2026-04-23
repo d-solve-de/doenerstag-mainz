@@ -1,0 +1,41 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/server-card/draft.json",
+  "serverInfo": {
+    "name": "donerstag-mainz",
+    "version": "0.0.0",
+    "title": "Dönerstag Mainz",
+    "description": "Informational MCP card for the Dönerstag Mainz website. The site itself is informational only and does not currently expose a live MCP transport endpoint; this card describes the static resources available to agents."
+  },
+  "site": {
+    "url": "https://www.donerstag-mainz.de/",
+    "language": "de",
+    "alternateLanguages": ["en"]
+  },
+  "transport": null,
+  "capabilities": {
+    "resources": {
+      "listChanged": false,
+      "items": [
+        {
+          "uri": "https://www.donerstag-mainz.de/llms.txt",
+          "name": "llms.txt",
+          "mimeType": "text/markdown",
+          "description": "Concise Markdown summary of the restaurant for LLMs."
+        },
+        {
+          "uri": "https://www.donerstag-mainz.de/index.md",
+          "name": "index.md",
+          "mimeType": "text/markdown",
+          "description": "Homepage rendered as Markdown."
+        }
+      ]
+    },
+    "tools": {},
+    "prompts": {}
+  },
+  "links": [
+    { "rel": "service-doc", "href": "https://www.donerstag-mainz.de/llms.txt" },
+    { "rel": "describedby", "href": "https://www.donerstag-mainz.de/.well-known/agent-skills/index.json" },
+    { "rel": "api-catalog", "href": "https://www.donerstag-mainz.de/.well-known/api-catalog" }
+  ]
+}

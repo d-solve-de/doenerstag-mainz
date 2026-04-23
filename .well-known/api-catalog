@@ -1,0 +1,38 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.donerstag-mainz.de/",
+      "service-doc": [
+        {
+          "href": "https://www.donerstag-mainz.de/llms.txt",
+          "type": "text/markdown",
+          "title": "Plain-text/Markdown summary of the site (llms.txt)"
+        },
+        {
+          "href": "https://www.donerstag-mainz.de/index.md",
+          "type": "text/markdown",
+          "title": "Homepage rendered as Markdown"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://www.donerstag-mainz.de/.well-known/agent-skills/index.json",
+          "type": "application/json",
+          "title": "Agent Skills Discovery index"
+        }
+      ],
+      "related": [
+        {
+          "href": "https://www.donerstag-mainz.de/sitemap.xml",
+          "type": "application/xml",
+          "title": "Sitemap"
+        },
+        {
+          "href": "https://www.donerstag-mainz.de/robots.txt",
+          "type": "text/plain",
+          "title": "robots.txt with Content Signals"
+        }
+      ]
+    }
+  ]
+}

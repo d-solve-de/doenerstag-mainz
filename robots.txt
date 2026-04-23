@@ -4,61 +4,83 @@
 # opening hours, menu). All search engines and AI / LLM agents are
 # welcome to crawl and index this content so users can discover us.
 
+# Content Signals (https://contentsignals.org/,
+# draft-romm-aipref-contentsignals): we welcome inclusion in search and
+# real-time AI answers, but do not consent to bulk training corpora.
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
 User-agent: *
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-# Explicitly welcome common AI / agent crawlers
-# (listed individually so site owners can adjust per-bot if needed).
+# Explicitly welcome common AI / agent crawlers for live answers
+# (search + ai-input), but opt out of training-set ingestion (ai-train).
 User-agent: GPTBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: OAI-SearchBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: ChatGPT-User
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: ClaudeBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Claude-Web
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: anthropic-ai
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: PerplexityBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Perplexity-User
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Google-Extended
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: GoogleOther
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Applebot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Applebot-Extended
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Bingbot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: DuckDuckBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: CCBot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Meta-ExternalAgent
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 User-agent: Amazonbot
 Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-# LLM-friendly summary
 Sitemap: https://www.donerstag-mainz.de/sitemap.xml

@@ -1,0 +1,52 @@
+# Headers configuration
+#
+# This file is honoured by Cloudflare Pages and Netlify. GitHub Pages
+# (the current host) ignores it, but it is kept so that:
+#   1. A future migration immediately gains the agent-readiness headers
+#      below.
+#   2. The intended Link / content-type semantics are documented in the
+#      repository.
+#
+# When served, the homepage advertises useful agent resources via Link
+# headers (RFC 8288) and the .well-known JSON files use the appropriate
+# IANA media types.
+
+/*
+  Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+/
+  Link: </llms.txt>; rel="service-doc"; type="text/markdown"
+  Link: </index.md>; rel="alternate"; type="text/markdown"; title="Markdown version"
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+  Link: </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
+  Link: </.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/rels/server-card"; type="application/json"
+  Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
+  Vary: Accept
+
+/index.html
+  Link: </llms.txt>; rel="service-doc"; type="text/markdown"
+  Link: </index.md>; rel="alternate"; type="text/markdown"; title="Markdown version"
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+  Link: </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json"
+  Link: </.well-known/mcp/server-card.json>; rel="https://modelcontextprotocol.io/rels/server-card"; type="application/json"
+  Vary: Accept
+
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
+  Access-Control-Allow-Origin: *
+
+/.well-known/mcp/server-card.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
