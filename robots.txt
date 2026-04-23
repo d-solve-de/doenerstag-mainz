@@ -1,0 +1,64 @@
+# robots.txt for https://www.donerstag-mainz.de/
+#
+# This site is public information about a restaurant (address, phone,
+# opening hours, menu). All search engines and AI / LLM agents are
+# welcome to crawl and index this content so users can discover us.
+
+User-agent: *
+Allow: /
+
+# Explicitly welcome common AI / agent crawlers
+# (listed individually so site owners can adjust per-bot if needed).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# LLM-friendly summary
+Sitemap: https://www.donerstag-mainz.de/sitemap.xml

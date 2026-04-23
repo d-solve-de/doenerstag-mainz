@@ -931,7 +931,7 @@ function createMenuCard(item) {
   card.setAttribute('aria-label', `${item.gericht} – ${formatPrice(item.preis)}`);
 
   const imgPart = item.bildUrl
-    ? `<img class="menu-card-img" src="${escapeHtml(item.bildUrl)}" alt="${escapeHtml(item.gericht)}" loading="lazy" />`
+    ? `<img class="menu-card-img" src="${escapeHtml(item.bildUrl)}" alt="${escapeHtml(item.gericht)}" loading="lazy" decoding="async" width="280" height="160" />`
     : `<div class="menu-card-img-placeholder" aria-hidden="true">${categoryEmoji(item.kategorie)}</div>`;
 
   card.innerHTML = `

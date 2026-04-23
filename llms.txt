@@ -1,0 +1,77 @@
+# Dönerstag Mainz
+
+> Restaurant und Imbiss am Kaiser-Wilhelm-Ring 39 in 55118 Mainz, Deutschland.
+> Spezialisiert auf frischen Döner, knusprige Pizza und vegane Falafel.
+> Täglich geöffnet bis spät in die Nacht.
+
+This file follows the [llms.txt](https://llmstxt.org/) convention and the
+recommendations from <https://isitagentready.com/> and
+<https://blog.cloudflare.com/agent-readiness/>. It provides a concise,
+machine-readable summary of this website for large language models and
+AI agents.
+
+## Business
+
+- **Name:** Dönerstag Mainz
+- **Address:** Kaiser-Wilhelm-Ring 39, 55118 Mainz, Germany
+- **Phone:** +49 6131 2165510 (tel: `+4961312165510`)
+- **Website:** https://www.donerstag-mainz.de/
+- **Cuisine:** Turkish, Mediterranean, Vegan, Pizza, Döner, Falafel
+- **Price range:** €
+- **Languages:** German (primary), English
+
+## Opening Hours
+
+| Day             | Hours              |
+| --------------- | ------------------ |
+| Monday – Thursday | 10:00 – 01:00 (next day) |
+| Friday – Saturday | 10:00 – 03:00 (next day) |
+| Sunday          | 10:00 – 01:00 (next day) |
+
+Live opening status is shown on the homepage and is loaded from a Google Sheet,
+so the times above may occasionally change for holidays or special events.
+
+## Special Days (Aktionstage)
+
+- **Monday – Falafel-Tag:** Falafel Sandwich + soft drink 0.33 l for 7.00 €
+- **Wednesday – Pizza-Tag:** Any 32 cm pizza for 8.50 €
+  (excluding Funghi, Salami, Margherita – see menu for those prices)
+- **Thursday – Dönerstag:** Döner Sandwich + soft drink 0.33 l for 7.00 €
+
+## Menu Categories
+
+- Döner & Kebab (Brot, Dürüm, Teller, a la Turka, Yufka, Veganer Dürüm mit Halloumi)
+- Falafel (im Brot, Dürüm, Teller)
+- Pizza (Margherita, Funghi, Salami, Döner und mehr)
+- Salate (Thunfischsalat, Gemischter Salat)
+- Getränke (Cola, Wasser, Ayran u. a.)
+
+The full menu is rendered dynamically on the homepage from a Google Sheet
+and may change. Please refer to the live site or call for current items
+and prices.
+
+## Pages and Sections
+
+- [Homepage](https://www.donerstag-mainz.de/) – overview, daily highlight,
+  hero section
+- [Speisekarte](https://www.donerstag-mainz.de/#speisekarte) – full menu
+- [Aktionstage](https://www.donerstag-mainz.de/#spezial) – weekly specials
+- [Öffnungszeiten](https://www.donerstag-mainz.de/#oeffnungszeiten) – opening hours
+- [Kontakt](https://www.donerstag-mainz.de/#kontakt) – address, phone, map and
+  directions
+- Impressum and Datenschutzerklärung are available as modals from the footer.
+
+## Ordering & Reservations
+
+- The restaurant is **walk-in / pickup**. Reservations are not accepted.
+- For orders, please call **+49 6131 2165510** during opening hours.
+
+## Usage by AI Agents
+
+- This site is openly accessible. AI agents are welcome to read public
+  information (address, phone, opening hours, menu, special days) to help
+  users find or contact the restaurant.
+- Please respect the user's privacy: do not collect personal data from this
+  site. The site itself does not use third-party tracking or advertising.
+- For booking or ordering, route the user to the phone number above; there
+  is no online ordering API.
