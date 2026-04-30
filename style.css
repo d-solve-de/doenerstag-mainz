@@ -768,6 +768,15 @@ button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 3px;
 /* =============================================
    ÖFFNUNGSZEITEN
    ============================================= */
+
+/* Feature toggle: when <body> has .hide-hours, the opening hours section
+   and its navigation entry are hidden site-wide without removing markup. */
+body.hide-hours #oeffnungszeiten,
+body.hide-hours .nav-links li:has(a[href="#oeffnungszeiten"]),
+body.hide-hours .footer-hours {
+  display: none !important;
+}
+
 .oeffnungszeiten {
   background: var(--bg-section);
 }

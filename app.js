@@ -18,6 +18,12 @@
 // Constants
 // =============================================
 
+/**
+ * Feature toggle: temporarily hide the "Öffnungszeiten" section and nav link
+ * without removing the related code/markup. Set to `false` to show again.
+ */
+const HIDE_HOURS = true;
+
 const SHEET_ID        = '1VGKY-hecl4sMV1L6kOeYJI9nw4MgmP9BKzW3JfyK1UM';
 const GVIZ_PRICES_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=prices`;
 const GVIZ_HOURS_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=opening-hours`;
@@ -322,14 +328,18 @@ function updateThemeButton() {
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (HIDE_HOURS) document.body.classList.add('hide-hours');
+
   initTheme();
   initLanguage();
   initYear();
   initNavbar();
   initMobileNav();
   initHeroAnimation();
-  initHoursStatus();
-  initFooterHours();
+  if (!HIDE_HOURS) {
+    initHoursStatus();
+    initFooterHours();
+  }
   initMenuLoader();
   initModals();
   initParticles();
